@@ -1,0 +1,6 @@
+1. Hook (0–30s): “Ever had your code do the opposite of what you wanted?”
+2. Core Concept (30s–2:30): Simple analogy + 1-line summary
+3. Live Demo (2:30–4:30): Code in browser/console
+4. Common Hangups (4:30–5:30): “Here’s where 90% of newbies trip”
+5. Mini-Challenge (5:30–6:30): “Pause and try this now”
+6. Teaser (6:30–7:00): “Next video unlocks…”

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 5: Objects & Arrays - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+      .playlist-item {
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
+        background: var(--bg-light);
+        border-left: 3px solid var(--border-accent);
+        border-radius: var(--radius-sm);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="../index.html" class="back-link">Back to Main Menu</a>
+      <h1>Video 5: Objects & Arrays</h1>
+
+      <div class="section">
+        <h2>Interactive Examples</h2>
+        <button onclick="runObjectsDemo()">Objects Demo</button>
+        <button onclick="runArraysDemo()">Arrays Demo</button>
+        <button onclick="runArrayMethods()">Array Methods</button>
+        <button onclick="runPlaylistDemo()">Playlist Challenge</button>
+        <button onclick="clearConsole()">Clear Console</button>
+      </div>
+
+      <div class="section">
+        <h2>Playlist Manager</h2>
+        <div id="playlistDisplay"></div>
+        <div
+          id="playlistStats"
+          style="margin-top: 10px; font-weight: bold"
+        ></div>
+      </div>
+
+      <div class="section">
+        <h2>Console Output</h2>
+        <div id="console" class="console"></div>
+      </div>
+
+      <script>
+        let playlist = [
+          { title: "Song A", duration: 210 },
+          { title: "Song B", duration: 180 },
+          { title: "Song C", duration: 240 },
+        ];
+
+        function log(message) {
+          console.log(message);
+          const consoleDiv = document.getElementById("console");
+          const line = document.createElement("div");
+          line.textContent = message;
+          consoleDiv.appendChild(line);
+        }
+
+        function clearConsole() {
+          document.getElementById("console").innerHTML = "";
+          console.clear();
+        }
+
+        function updatePlaylistDisplay() {
+          const display = document.getElementById("playlistDisplay");
+          const stats = document.getElementById("playlistStats");
+
+          display.innerHTML = "<h3>Current Playlist:</h3>";
+          playlist.forEach((song, index) => {
+            const item = document.createElement("div");
+            item.className = "playlist-item";
+            item.textContent = `${index + 1}. ${song.title} (${
+              song.duration
+            }s)`;
+            display.appendChild(item);
+          });
+
+          const totalSeconds = playlist.reduce(
+            (sum, song) => sum + song.duration,
+            0
+          );
+          const totalMinutes = (totalSeconds / 60).toFixed(1);
+          stats.textContent = `Total: ${totalMinutes} minutes (${totalSeconds} seconds)`;
+        }
+
+        function runObjectsDemo() {
+          clearConsole();
+          log("=== Objects Demo ===");
+
+          const song = {
+            title: "Song 1",
+            artist: "Artist A",
+            duration: 180,
+          };
+
+          log(`Song title: ${song.title}`);
+          log(`Artist: ${song.artist}`);
+          log(`Duration: ${song.duration} seconds`);
+        }
+
+        function runArraysDemo() {
+          clearConsole();
+          log("=== Arrays Demo ===");
+
+          const fruits = ["apple", "banana", "orange"];
+          log(`Fruits: ${fruits.join(", ")}`);
+          log(`First fruit: ${fruits[0]}`);
+          log(`Array length: ${fruits.length}`);
+
+          fruits.push("grape");
+          log(`After push: ${fruits.join(", ")}`);
+        }
+
+        function runArrayMethods() {
+          clearConsole();
+          log("=== Array Methods Demo ===");
+
+          const numbers = [1, 2, 3, 4, 5];
+
+          // Map
+          const doubled = numbers.map((n) => n * 2);
+          log(`Original: [${numbers.join(", ")}]`);
+          log(`Doubled: [${doubled.join(", ")}]`);
+
+          // Filter
+          const evens = numbers.filter((n) => n % 2 === 0);
+          log(`Even numbers: [${evens.join(", ")}]`);
+
+          // Reduce
+          const sum = numbers.reduce((total, n) => total + n, 0);
+          log(`Sum: ${sum}`);
+        }
+
+        function runPlaylistDemo() {
+          clearConsole();
+          log("=== Playlist Challenge Solution ===");
+
+          const playlist = [
+            { title: "Song A", duration: 210 },
+            { title: "Song B", duration: 180 },
+            { title: "Song C", duration: 240 },
+          ];
+
+          log("Playlist:");
+          playlist.forEach((song, index) => {
+            log(`${index + 1}. ${song.title} - ${song.duration}s`);
+          });
+
+          const totalSeconds = playlist.reduce(
+            (sum, song) => sum + song.duration,
+            0
+          );
+          const totalMinutes = (totalSeconds / 60).toFixed(1);
+          log(`\nTotal: ${totalMinutes} minutes`);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+          log("Welcome! Click the buttons above to run examples.");
+          updatePlaylistDisplay();
+        });
+      </script>
+    </div>
+  </body>
+</html>

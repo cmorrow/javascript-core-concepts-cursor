@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 7: Asynchronous JavaScript - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        #joke {
+            font-size: var(--font-size-lg);
+            margin: var(--spacing-md) 0;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 7: Asynchronous JavaScript</h1>
+    
+    <div class="section">
+        <h2>Joke Fetcher Demo</h2>
+        <p>This demonstrates async/await with the fetch API:</p>
+        <ul>
+            <li><code>async</code> - Marks a function as asynchronous</li>
+            <li><code>await</code> - Waits for a promise to complete</li>
+            <li><code>fetch</code> - Gets data from the internet</li>
+            <li><code>try/catch</code> - Handles errors gracefully</li>
+        </ul>
+        
+        <button id="fetch">Get Random Joke!</button>
+        <p id="joke">Waiting for a joke...</p>
+    </div>
+
+    <div class="section">
+        <h2>Code Explanation</h2>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// async means "this function will do things that take time"
+// await means "wait here until this finishes"
+document.querySelector('#fetch').addEventListener('click', async () => {
+    const el = document.querySelector('#joke');
+    el.textContent = 'Loading...';  // Show loading message
+    
+    try {
+        // fetch gets data from a URL (this takes time!)
+        // await means "wait for fetch to finish before continuing"
+        const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+        
+        // res.json() converts the response to JavaScript data (also takes time!)
+        // await means "wait for this to finish too"
+        const data = await res.json();
+        
+        // Now we can use the data
+        el.textContent = `${data.setup} ... ${data.punchline} 😂`;
+    } catch {
+        // If something goes wrong (network error, etc.), show error message
+        el.textContent = 'Failed to load joke 😢';
+    }
+});
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Why Async?</h2>
+        <p><strong>Without async:</strong> The page would freeze while waiting for data.</p>
+        <p><strong>With async:</strong> The page stays responsive - you can click buttons, scroll, etc.</p>
+        <p>Think of it like ordering food: you don't stand at the counter waiting. You sit down, and they bring it when ready!</p>
+    </div>
+
+    <script>
+        /**
+         * VIDEO 7: Asynchronous JavaScript - Demo Code
+         * 
+         * Asynchronous code lets your program do other things while waiting.
+         * Think of it like ordering food - you don't wait at the counter.
+         * You sit down, and they bring it when it's ready.
+         * 
+         * Key concepts:
+         * - async: Marks a function as asynchronous (does things that take time)
+         * - await: Waits for a promise to complete (like waiting for food)
+         * - fetch: Gets data from the internet
+         * - try/catch: Handles errors gracefully
+         */
+
+        // Find the button and add a click listener
+        // The function is marked as "async" because it does things that take time
+        document.querySelector('#fetch').addEventListener('click', async () => {
+            // Find the paragraph where we'll show the joke
+            const el = document.querySelector('#joke');
+            
+            // Show a loading message immediately (this happens right away)
+            el.textContent = 'Loading...';
+            el.className = 'loading';
+            
+            // try/catch is like "try to do this, but if it fails, do that instead"
+            try {
+                // fetch() gets data from a URL
+                // It returns a "promise" - a promise that data will come eventually
+                // await means "wait here until the promise is fulfilled"
+                // Without await, the code would continue immediately (and break!)
+                const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+                
+                // res.json() converts the response to JavaScript data
+                // This also returns a promise, so we need await again
+                const data = await res.json();
+                
+                // Now we have the data! Display the joke
+                // data.setup is the joke question, data.punchline is the answer
+                el.textContent = `${data.setup} ... ${data.punchline} 😂`;
+                el.className = '';  // Remove loading class
+                
+            } catch (error) {
+                // If something goes wrong (network error, API down, etc.)
+                // The catch block runs instead
+                el.textContent = 'Failed to load joke 😢';
+                el.className = 'error';
+                console.error('Error:', error);  // Log the error for debugging
+            }
+        });
+    </script>
+    </div>
+</body>
+</html>
+

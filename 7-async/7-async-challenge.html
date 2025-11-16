@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 7: Async JavaScript - Challenge Solution</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        #dog {
+            max-width: 300px;
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+            display: block;
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 7: Async JavaScript - Challenge Solution</h1>
+    
+    <div class="section">
+        <h2>Challenge: Fetch Random Dog Image</h2>
+        <p><strong>Task:</strong> Fetch a random dog image from <code>https://dog.ceo/api/breeds/image/random</code> and show it in an <code>&lt;img id="dog"&gt;</code> element.</p>
+        
+        <button id="fetch">Get Random Dog!</button>
+        <img id="dog" src="" alt="Random Dog" style="display: none;">
+        <p id="status"></p>
+    </div>
+
+    <div class="section">
+        <h2>Solution Code</h2>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// Find the button and add click listener
+document.querySelector('#fetch').addEventListener('click', async () => {
+    // Find the img element
+    const img = document.querySelector('#dog');
+    
+    // Clear previous image (optional)
+    img.src = '';
+    img.style.display = 'none';
+    
+    try {
+        // Fetch data from the API
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        
+        // Convert response to JavaScript object
+        const data = await res.json();
+        
+        // Set the image source to the URL from the API
+        // data.message contains the image URL
+        img.src = data.message;
+        img.style.display = 'block';  // Show the image
+    } catch {
+        // If something goes wrong, show error
+        img.alt = 'Failed to load dog 😢';
+        img.style.display = 'block';
+    }
+});
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Alternative Solutions</h2>
+        
+        <h3>Solution 1: With Status Message</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+document.querySelector('#fetch').addEventListener('click', async () => {
+    const img = document.querySelector('#dog');
+    const status = document.querySelector('#status');
+    
+    status.textContent = 'Loading...';
+    img.style.display = 'none';
+    
+    try {
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await res.json();
+        
+        img.src = data.message;
+        img.style.display = 'block';
+        status.textContent = 'Dog loaded!';
+    } catch (error) {
+        status.textContent = 'Failed to load dog 😢';
+        img.style.display = 'none';
+    }
+});
+        </pre>
+        
+        <h3>Solution 2: With Error Handling</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+document.querySelector('#fetch').addEventListener('click', async () => {
+    const img = document.querySelector('#dog');
+    
+    try {
+        img.src = '';  // Clear previous image
+        
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        
+        // Check if the response is OK
+        if (!res.ok) {
+            throw new Error('API returned an error');
+        }
+        
+        const data = await res.json();
+        
+        // Check if data has the expected structure
+        if (!data.message) {
+            throw new Error('Invalid data format');
+        }
+        
+        img.src = data.message;
+        img.alt = 'Random Dog';
+    } catch (error) {
+        img.alt = 'Failed to load dog 😢';
+        console.error('Error:', error);
+    }
+});
+        </pre>
+        
+        <h3>Solution 3: Using .then() Instead of async/await</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// This is the older way (still works, but async/await is cleaner)
+document.querySelector('#fetch').addEventListener('click', () => {
+    const img = document.querySelector('#dog');
+    
+    img.src = '';
+    
+    fetch('https://dog.ceo/api/breeds/image/random')
+        .then(res => res.json())
+        .then(data => {
+            img.src = data.message;
+        })
+        .catch(() => {
+            img.alt = 'Failed to load dog 😢';
+        });
+});
+        </pre>
+    </div>
+
+    <script>
+        /**
+         * VIDEO 7: Async JavaScript - Challenge Solution
+         * 
+         * CHALLENGE: Fetch a random dog image from 
+         * https://dog.ceo/api/breeds/image/random 
+         * and show it in <img id="dog">
+         */
+
+        // Find the button and add click listener
+        document.querySelector('#fetch').addEventListener('click', async () => {
+            // Find the img element
+            const img = document.querySelector('#dog');
+            const status = document.querySelector('#status');
+            
+            // Clear previous image and show loading
+            img.src = '';
+            img.style.display = 'none';
+            status.textContent = 'Loading...';
+            status.className = 'loading';
+            
+            try {
+                // Fetch data from the API
+                // await means "wait for this to finish"
+                const res = await fetch('https://dog.ceo/api/breeds/image/random');
+                
+                // Convert the response to a JavaScript object
+                // The API returns: { "message": "https://...", "status": "success" }
+                const data = await res.json();
+                
+                // Set the image source to the URL from the API
+                // data.message contains the image URL
+                img.src = data.message;
+                img.alt = 'Random Dog';
+                img.style.display = 'block';  // Show the image
+                
+                status.textContent = 'Dog loaded! 🐕';
+                status.className = '';
+                
+            } catch (error) {
+                // If something goes wrong (network error, API down, etc.)
+                img.alt = 'Failed to load dog 😢';
+                img.style.display = 'block';
+                status.textContent = 'Failed to load dog 😢';
+                status.className = 'error';
+                console.error('Error:', error);
+            }
+        });
+    </script>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 6: DOM Manipulation - Challenge Solution</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        #out {
+            font-size: var(--font-size-lg);
+            margin: var(--spacing-md) 0;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 6: DOM Manipulation - Challenge Solution</h1>
+    
+    <div class="section">
+        <h2>Challenge: Add a Reset Button</h2>
+        <p><strong>Task:</strong> Add a reset button that sets count to 0 and text to "Waiting...".</p>
+        
+        <button id="btn">Click Me!</button>
+        <button id="reset">Reset</button>
+        <p id="out">Waiting...</p>
+    </div>
+
+    <div class="section">
+        <h2>Solution Code</h2>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// Find the reset button and add a click listener
+document.querySelector('#reset').addEventListener('click', () => {
+    // Reset the count variable to 0
+    count = 0;
+    
+    // Find the output paragraph
+    const out = document.querySelector('#out');
+    
+    // Reset the text content to "Waiting..."
+    out.textContent = 'Waiting...';
+    
+    // Reset the color back to black (or original color)
+    out.style.color = 'black';
+});
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Alternative Solutions</h2>
+        <h3>Solution 1: More Explicit</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+document.querySelector('#reset').addEventListener('click', function() {
+    count = 0;
+    document.querySelector('#out').textContent = 'Waiting...';
+    document.querySelector('#out').style.color = 'black';
+});
+        </pre>
+        
+        <h3>Solution 2: Store Elements in Variables</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// Store elements in variables for reuse
+const resetBtn = document.querySelector('#reset');
+const output = document.querySelector('#out');
+
+resetBtn.addEventListener('click', () => {
+    count = 0;
+    output.textContent = 'Waiting...';
+    output.style.color = 'black';
+});
+        </pre>
+        
+        <h3>Solution 3: Create Reset Function</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// Create a reusable reset function
+function resetCounter() {
+    count = 0;
+    const out = document.querySelector('#out');
+    out.textContent = 'Waiting...';
+    out.style.color = 'black';
+}
+
+// Use the function
+document.querySelector('#reset').addEventListener('click', resetCounter);
+        </pre>
+    </div>
+
+    <script>
+        /**
+         * VIDEO 6: DOM Manipulation - Challenge Solution
+         * 
+         * CHALLENGE: Add a reset button that sets count to 0 
+         * and text to "Waiting...".
+         */
+
+        let count = 0;
+
+        // Original click button
+        document.querySelector('#btn').addEventListener('click', () => {
+            count++;
+            const out = document.querySelector('#out');
+            out.textContent = `Clicked ${count} time${count > 1 ? 's' : ''}!`;
+            out.style.color = count % 2 ? 'blue' : 'red';
+        });
+
+        // SOLUTION: Reset button
+        document.querySelector('#reset').addEventListener('click', () => {
+            // Reset count to 0
+            count = 0;
+            
+            // Find the output element
+            const out = document.querySelector('#out');
+            
+            // Reset the text content
+            out.textContent = 'Waiting...';
+            
+            // Reset the color
+            out.style.color = 'black';
+        });
+    </script>
+    </div>
+</body>
+</html>
+

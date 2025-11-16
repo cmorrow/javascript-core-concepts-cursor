@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 2: Comparison Operators - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        .result {
+            margin-top: 10px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 2: Comparison Operators</h1>
+    
+    <div class="section">
+        <h2>Interactive Examples</h2>
+        <button onclick="runEqualityDemo()">Equality Demo</button>
+        <button onclick="runInequalityDemo()">Inequality Demo</button>
+        <button onclick="runGreaterLessDemo()">Greater/Less Than</button>
+        <button onclick="runStringComparison()">String Comparison</button>
+        <button onclick="runChallenge()">Challenge Solution</button>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <div class="section">
+        <h2>Try It Yourself</h2>
+        <input type="text" id="value1" placeholder="First value" value="5">
+        <input type="text" id="value2" placeholder="Second value" value='"5"'>
+        <button onclick="compareValues()">Compare Values</button>
+        <div id="comparisonResult" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>Console Output</h2>
+        <div id="console" class="console"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            console.log(message);
+            const consoleDiv = document.getElementById('console');
+            const line = document.createElement('div');
+            line.textContent = message;
+            consoleDiv.appendChild(line);
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+            console.clear();
+        }
+
+        function runEqualityDemo() {
+            clearConsole();
+            log('=== Equality Comparisons ===');
+            
+            let num1 = 5;
+            let str1 = "5";
+            
+            log(`5 == "5": ${num1 == str1}`);
+            log(`5 === "5": ${num1 === str1}`);
+            log('');
+            log('More examples:');
+            log(`0 == false: ${0 == false}`);
+            log(`0 === false: ${0 === false}`);
+            log(`"" == false: ${"" == false}`);
+            log(`"" === false: ${"" === false}`);
+        }
+
+        function runInequalityDemo() {
+            clearConsole();
+            log('=== Inequality Comparisons ===');
+            
+            let num1 = 5;
+            let str1 = "5";
+            
+            log(`5 != "5": ${num1 != str1}`);
+            log(`5 !== "5": ${num1 !== str1}`);
+        }
+
+        function runGreaterLessDemo() {
+            clearConsole();
+            log('=== Greater Than / Less Than ===');
+            
+            let age1 = 25;
+            let age2 = 30;
+            
+            log(`25 > 30: ${age1 > age2}`);
+            log(`25 < 30: ${age1 < age2}`);
+            log(`25 >= 25: ${age1 >= 25}`);
+            log(`25 <= 30: ${age1 <= age2}`);
+        }
+
+        function runStringComparison() {
+            clearConsole();
+            log('=== String Comparisons ===');
+            
+            log('"apple" < "banana": ' + ("apple" < "banana"));
+            log('"zebra" > "apple": ' + ("zebra" > "apple"));
+            log('"A" < "a": ' + ("A" < "a"));
+            log('"apple" < "Banana": ' + ("apple" < "Banana"));
+            log('');
+            log('Case-insensitive:');
+            log('"apple".toLowerCase() < "Banana".toLowerCase(): ' + 
+                ("apple".toLowerCase() < "Banana".toLowerCase()));
+        }
+
+        function runChallenge() {
+            clearConsole();
+            log('=== Challenge Solution ===');
+            
+            let score1 = 85;
+            let score2 = "85";
+            
+            log(`score1 == score2: ${score1 == score2}`);
+            log(`score1 === score2: ${score1 === score2}`);
+            log(`score1 > 80: ${score1 > 80}`);
+            log(`score2 > 80: ${score2 > 80}`);
+        }
+
+        function compareValues() {
+            const val1 = document.getElementById('value1').value;
+            const val2 = document.getElementById('value2').value;
+            const resultDiv = document.getElementById('comparisonResult');
+            
+            // Try to parse as numbers if possible
+            let parsed1 = isNaN(val1) ? val1 : Number(val1);
+            let parsed2 = isNaN(val2) ? val2 : Number(val2);
+            
+            // If they look like strings with quotes, remove quotes
+            if (typeof parsed1 === 'string' && parsed1.startsWith('"') && parsed1.endsWith('"')) {
+                parsed1 = parsed1.slice(1, -1);
+            }
+            if (typeof parsed2 === 'string' && parsed2.startsWith('"') && parsed2.endsWith('"')) {
+                parsed2 = parsed2.slice(1, -1);
+            }
+            
+            let html = '<h3>Comparison Results:</h3>';
+            html += `<p>${parsed1} == ${parsed2}: <span class="${parsed1 == parsed2 ? 'true' : 'false'}">${parsed1 == parsed2}</span></p>`;
+            html += `<p>${parsed1} === ${parsed2}: <span class="${parsed1 === parsed2 ? 'true' : 'false'}">${parsed1 === parsed2}</span></p>`;
+            html += `<p>${parsed1} != ${parsed2}: <span class="${parsed1 != parsed2 ? 'true' : 'false'}">${parsed1 != parsed2}</span></p>`;
+            html += `<p>${parsed1} !== ${parsed2}: <span class="${parsed1 !== parsed2 ? 'true' : 'false'}">${parsed1 !== parsed2}</span></p>`;
+            
+            if (typeof parsed1 === 'number' && typeof parsed2 === 'number') {
+                html += `<p>${parsed1} > ${parsed2}: <span class="${parsed1 > parsed2 ? 'true' : 'false'}">${parsed1 > parsed2}</span></p>`;
+                html += `<p>${parsed1} < ${parsed2}: <span class="${parsed1 < parsed2 ? 'true' : 'false'}">${parsed1 < parsed2}</span></p>`;
+            }
+            
+            resultDiv.innerHTML = html;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            log('Welcome! Click the buttons above to run examples.');
+            log('Try the comparison tool below to test your own values!');
+        });
+    </script>
+    </div>
+</body>
+</html>
+

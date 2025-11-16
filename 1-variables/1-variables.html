@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 1: Variables & Data Types - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <a href="../index.html" class="back-link">Back to Main Menu</a>
+      <h1>Video 1: Variables & Data Types</h1>
+
+      <div class="section">
+        <h2>Interactive Console</h2>
+        <p>
+          Click the buttons below to see the code examples in action. Open your
+          browser's developer console (F12) to see detailed output.
+        </p>
+        <button onclick="runBasicExamples()">Run Basic Examples</button>
+        <button onclick="runTypeCoercion()">Type Coercion Demo</button>
+        <button onclick="runTemplateLiterals()">Template Literals</button>
+        <button onclick="runTypeChecking()">Type Checking</button>
+        <button onclick="clearConsole()">Clear Console</button>
+      </div>
+
+      <div class="section">
+        <h2>Console Output</h2>
+        <div id="console" class="console"></div>
+      </div>
+
+      <script>
+        // Helper function to log to both browser console and page
+        function log(message) {
+          console.log(message);
+          const consoleDiv = document.getElementById("console");
+          const line = document.createElement("div");
+          line.textContent = message;
+          consoleDiv.appendChild(line);
+        }
+
+        function clearConsole() {
+          document.getElementById("console").innerHTML = "";
+          console.clear();
+        }
+
+        function runBasicExamples() {
+          clearConsole();
+          log("=== Basic Variable Examples ===");
+
+          // let example
+          let name = "Alex";
+          log(`let name = 'Alex'; → ${name}`);
+          name = "Alexandra";
+          log(`name = 'Alexandra'; → ${name}`);
+
+          // const example
+          const age = 25;
+          log(`const age = 25; → ${age}`);
+          log("Note: const cannot be reassigned");
+
+          // var example
+          var isLearning = true;
+          log(`var isLearning = true; → ${isLearning}`);
+
+          // Different data types
+          log("\n=== Data Types ===");
+          log(`String: 'Hello' → ${typeof "Hello"}`);
+          log(`Number: 42 → ${typeof 42}`);
+          log(`Boolean: true → ${typeof true}`);
+          log(`Null: null → ${typeof null}`);
+          log(`Undefined: undefined → ${typeof undefined}`);
+        }
+
+        function runTypeCoercion() {
+          clearConsole();
+          log("=== Type Coercion Examples ===");
+          log("The \"1 + '1' = '11'\" Problem:");
+          log(`1 + '1' = ${1 + "1"}`);
+          log(`"5" - 2 = ${"5" - 2}`);
+          log(`"5" + 2 = ${"5" + 2}`);
+          log("\nHow to fix it:");
+          log(`Number("1") + 1 = ${Number("1") + 1}`);
+          log(`String(1) + "1" = ${String(1) + "1"}`);
+        }
+
+        function runTemplateLiterals() {
+          clearConsole();
+          log("=== Template Literals ===");
+
+          let personName = "Alex";
+          let personAge = 25;
+          let personScore = 90;
+
+          let message = `${personName} is ${personAge} → ${
+            personScore + " points"
+          }`;
+          log(message);
+
+          log(
+            "\nTemplate literals use backticks (`) and ${} to insert variables:"
+          );
+          log("`${name} is ${age} years old`");
+        }
+
+        function runTypeChecking() {
+          clearConsole();
+          log("=== Type Checking ===");
+          log(`typeof "hello" → ${typeof "hello"}`);
+          log(`typeof 42 → ${typeof 42}`);
+          log(`typeof true → ${typeof true}`);
+          log(`typeof null → ${typeof null} (JavaScript quirk!)`);
+          log(`typeof undefined → ${typeof undefined}`);
+        }
+
+        // Run basic examples on page load
+        window.addEventListener("DOMContentLoaded", () => {
+          log("Welcome! Click the buttons above to run examples.");
+          log("Or open your browser console (F12) to try code yourself!");
+        });
+      </script>
+    </div>
+  </body>
+</html>

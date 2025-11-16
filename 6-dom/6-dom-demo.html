@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 6: DOM Manipulation - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        #out {
+            font-size: var(--font-size-lg);
+            margin: var(--spacing-md) 0;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 6: DOM Manipulation</h1>
+    
+    <div class="section">
+        <h2>Click Counter Demo</h2>
+        <p>This demonstrates the core concepts from the video:</p>
+        <ul>
+            <li><code>querySelector</code> - Finding elements on the page</li>
+            <li><code>textContent</code> - Changing text</li>
+            <li><code>style</code> - Changing appearance</li>
+            <li><code>addEventListener</code> - Responding to clicks</li>
+        </ul>
+        
+        <button id="btn">Click Me!</button>
+        <button id="reset">Reset</button>
+        <p id="out">Waiting...</p>
+    </div>
+
+    <div class="section">
+        <h2>Code Explanation</h2>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// DOM = Document Object Model
+// It's JavaScript's way of "seeing" and "changing" the HTML page
+
+let count = 0;  // Variable to track clicks
+
+// querySelector finds an element by its ID (the # means ID)
+// Think of it as "find the button with id='btn'"
+document.querySelector('#btn').addEventListener('click', () => {
+    count++;  // Add 1 to count
+    
+    // Find the paragraph with id='out'
+    const out = document.querySelector('#out');
+    
+    // Change the text content
+    // Template literal: if count is 1, show "time", otherwise "times"
+    out.textContent = `Clicked ${count} time${count > 1 ? 's' : ''}!`;
+    
+    // Change the color style
+    // % is modulo - gives remainder. If count is odd, remainder is 1 (truthy)
+    // If count is even, remainder is 0 (falsy)
+    out.style.color = count % 2 ? 'blue' : 'red';
+});
+
+// Reset button - sets count back to 0
+document.querySelector('#reset').addEventListener('click', () => {
+    count = 0;
+    const out = document.querySelector('#out');
+    out.textContent = 'Waiting...';
+    out.style.color = 'black';
+});
+        </pre>
+    </div>
+
+    <script>
+        /**
+         * VIDEO 6: DOM Manipulation - Demo Code
+         * 
+         * DOM stands for "Document Object Model"
+         * Think of it as JavaScript's map of your HTML page
+         * 
+         * Key concepts:
+         * - querySelector: Find elements on the page
+         * - textContent: Change the text inside an element
+         * - style: Change how an element looks
+         * - addEventListener: Make elements respond to user actions
+         */
+
+        // Variable to keep track of how many times the button was clicked
+        let count = 0;
+
+        // Find the button with id="btn" and add a click listener
+        // addEventListener means "when this happens, do that"
+        // 'click' is the event (what happens)
+        // () => { ... } is what to do when it happens
+        document.querySelector('#btn').addEventListener('click', () => {
+            count++;  // Add 1 to the count (same as count = count + 1)
+            
+            // Find the paragraph element with id="out"
+            const out = document.querySelector('#out');
+            
+            // Change the text content of the paragraph
+            // Template literal with conditional: if count > 1, add 's' for plural
+            out.textContent = `Clicked ${count} time${count > 1 ? 's' : ''}!`;
+            
+            // Change the color style
+            // count % 2 means "remainder when count is divided by 2"
+            // If count is odd (1, 3, 5...), remainder is 1 (truthy) → blue
+            // If count is even (2, 4, 6...), remainder is 0 (falsy) → red
+            out.style.color = count % 2 ? 'blue' : 'red';
+        });
+
+        // Reset button - sets everything back to the start
+        document.querySelector('#reset').addEventListener('click', () => {
+            count = 0;  // Reset count to 0
+            
+            const out = document.querySelector('#out');
+            out.textContent = 'Waiting...';  // Reset text
+            out.style.color = 'black';  // Reset color
+        });
+    </script>
+    </div>
+</body>
+</html>
+

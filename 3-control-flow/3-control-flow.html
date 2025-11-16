@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 3: Control Flow - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 3: Control Flow - Conditionals & Loops</h1>
+    
+    <div class="section">
+        <h2>Interactive Examples</h2>
+        <button onclick="runConditionals()">Conditionals Demo</button>
+        <button onclick="runLoops()">Loops Demo</button>
+        <button onclick="runSwitch()">Switch Statement</button>
+        <button onclick="runBreakContinue()">Break & Continue</button>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <div class="section">
+        <h2>Grade Calculator</h2>
+        <input type="number" id="scoreInput" placeholder="Enter score (0-100)" min="0" max="100">
+        <button onclick="calculateGrade()">Get Grade</button>
+        <div id="gradeResult" style="margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <div class="section">
+        <h2>Console Output</h2>
+        <div id="console" class="console"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            console.log(message);
+            const consoleDiv = document.getElementById('console');
+            const line = document.createElement('div');
+            line.textContent = message;
+            consoleDiv.appendChild(line);
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+            console.clear();
+        }
+
+        function runConditionals() {
+            clearConsole();
+            log('=== Conditionals Demo ===');
+            
+            let score = 85;
+            log(`Score: ${score}`);
+            
+            if (score > 90) {
+                log('You got an A+!');
+            } else if (score > 80) {
+                log('You got a B!');
+            } else {
+                log('Keep trying!');
+            }
+            
+            log('\nTernary operator example:');
+            let grade = score > 90 ? 'A+' : score > 80 ? 'B' : 'Keep trying';
+            log(`Grade: ${grade}`);
+        }
+
+        function runLoops() {
+            clearConsole();
+            log('=== Loops Demo ===');
+            
+            log('\nFor loop - even numbers 1-10:');
+            let evens = [];
+            for (let i = 1; i <= 10; i++) {
+                if (i % 2 === 0) {
+                    evens.push(i);
+                }
+            }
+            log(evens.join(', '));
+            
+            log('\nWhile loop - count to 5:');
+            let count = 0;
+            while (count < 5) {
+                log(`Count: ${count}`);
+                count++;
+            }
+        }
+
+        function runSwitch() {
+            clearConsole();
+            log('=== Switch Statement Demo ===');
+            
+            let days = ['Monday', 'Friday', 'Saturday', 'Wednesday'];
+            days.forEach(day => {
+                let message = '';
+                switch (day) {
+                    case 'Monday':
+                        message = 'Start of the work week';
+                        break;
+                    case 'Friday':
+                        message = 'TGIF!';
+                        break;
+                    case 'Saturday':
+                    case 'Sunday':
+                        message = 'Weekend!';
+                        break;
+                    default:
+                        message = 'Regular day';
+                }
+                log(`${day}: ${message}`);
+            });
+        }
+
+        function runBreakContinue() {
+            clearConsole();
+            log('=== Break & Continue Demo ===');
+            
+            log('\nBreak example (stops at 5):');
+            for (let i = 1; i <= 10; i++) {
+                if (i === 5) {
+                    break;
+                }
+                log(i);
+            }
+            
+            log('\nContinue example (only odd numbers):');
+            for (let i = 1; i <= 10; i++) {
+                if (i % 2 === 0) {
+                    continue;
+                }
+                log(i);
+            }
+        }
+
+        function calculateGrade() {
+            const score = parseInt(document.getElementById('scoreInput').value);
+            const resultDiv = document.getElementById('gradeResult');
+            
+            if (isNaN(score) || score < 0 || score > 100) {
+                resultDiv.textContent = 'Please enter a valid score (0-100)';
+                resultDiv.style.color = 'red';
+                return;
+            }
+            
+            let grade;
+            if (score >= 90) {
+                grade = 'A';
+            } else if (score >= 80) {
+                grade = 'B';
+            } else if (score >= 70) {
+                grade = 'C';
+            } else if (score >= 60) {
+                grade = 'D';
+            } else {
+                grade = 'F';
+            }
+            
+            resultDiv.textContent = `Score: ${score} → Grade: ${grade}`;
+            resultDiv.style.color = 'green';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            log('Welcome! Click the buttons above to run examples.');
+            log('Try the grade calculator too!');
+        });
+    </script>
+    </div>
+</body>
+</html>
+

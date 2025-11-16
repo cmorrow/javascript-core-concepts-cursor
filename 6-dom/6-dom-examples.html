@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 6: DOM Manipulation - Examples</title>
+    <link rel="stylesheet" href="../main.css" />
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            margin: var(--spacing-sm) 0;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .list-item {
+            padding: var(--spacing-sm);
+            margin: var(--spacing-xs) 0;
+            background: var(--bg-light);
+            border-left: 3px solid var(--border-accent);
+            border-radius: var(--radius-sm);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 6: DOM Manipulation - Examples & Best Practices</h1>
+    
+    <div class="section">
+        <h2>Example 1: Text Input & Display</h2>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button onclick="greetUser()">Greet Me</button>
+        <p id="greeting"></p>
+    </div>
+
+    <div class="section">
+        <h2>Example 2: Style Manipulation</h2>
+        <div id="colorBox" class="box"></div>
+        <button onclick="changeColor('red')">Red</button>
+        <button onclick="changeColor('green')">Green</button>
+        <button onclick="changeColor('blue')">Blue</button>
+        <button onclick="changeSize()">Toggle Size</button>
+    </div>
+
+    <div class="section">
+        <h2>Example 3: Show/Hide Elements</h2>
+        <button onclick="toggleVisibility()">Toggle Visibility</button>
+        <p id="toggleText">This text can be hidden or shown!</p>
+    </div>
+
+    <div class="section">
+        <h2>Example 4: Adding/Removing Elements</h2>
+        <input type="text" id="itemInput" placeholder="Enter item">
+        <button onclick="addItem()">Add Item</button>
+        <button onclick="clearList()">Clear List</button>
+        <div id="itemList"></div>
+    </div>
+
+    <div class="section">
+        <h2>Example 5: Form Handling</h2>
+        <form id="userForm">
+            <input type="text" id="userName" placeholder="Name" required>
+            <input type="email" id="userEmail" placeholder="Email" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="formResult"></div>
+    </div>
+
+    <div class="section">
+        <h2>Common Mistakes & Solutions</h2>
+        <h3>Mistake 1: Script Before HTML</h3>
+        <p>If your script runs before the HTML loads, querySelector will return null.</p>
+        <p><strong>Solution:</strong> Put script at end of body, or use DOMContentLoaded:</p>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+document.addEventListener('DOMContentLoaded', () => {
+    // Your code here - runs after HTML is loaded
+});
+        </pre>
+
+        <h3>Mistake 2: CSS Property Names</h3>
+        <p>CSS uses kebab-case (background-color), but JavaScript uses camelCase (backgroundColor).</p>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+// ❌ Wrong
+element.style.background-color = 'red';
+
+// ✅ Correct
+element.style.backgroundColor = 'red';
+        </pre>
+
+        <h3>Mistake 3: innerHTML vs textContent</h3>
+        <p>textContent is safer - it treats content as plain text. innerHTML can be a security risk.</p>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+// ✅ Safe - treats as text
+element.textContent = userInput;
+
+// ⚠️ Dangerous - can execute code if userInput contains HTML/JS
+element.innerHTML = userInput;
+        </pre>
+    </div>
+
+    <script>
+        /**
+         * VIDEO 6: DOM Manipulation - Examples & Best Practices
+         * 
+         * This file demonstrates various DOM manipulation techniques
+         * and common mistakes to avoid.
+         */
+
+        // Example 1: Text Input & Display
+        function greetUser() {
+            const nameInput = document.querySelector('#nameInput');
+            const greeting = document.querySelector('#greeting');
+            
+            const name = nameInput.value.trim();  // trim() removes extra spaces
+            
+            if (name) {
+                greeting.textContent = `Hello, ${name}!`;
+                greeting.style.color = 'green';
+            } else {
+                greeting.textContent = 'Please enter your name!';
+                greeting.style.color = 'red';
+            }
+        }
+
+        // Example 2: Style Manipulation
+        function changeColor(color) {
+            const box = document.querySelector('#colorBox');
+            box.style.backgroundColor = color;  // Note: backgroundColor, not background-color
+        }
+
+        let isLarge = false;
+        function changeSize() {
+            const box = document.querySelector('#colorBox');
+            isLarge = !isLarge;  // Toggle between true and false
+            
+            if (isLarge) {
+                box.style.width = '200px';
+                box.style.height = '200px';
+            } else {
+                box.style.width = '100px';
+                box.style.height = '100px';
+            }
+        }
+
+        // Example 3: Show/Hide Elements
+        function toggleVisibility() {
+            const text = document.querySelector('#toggleText');
+            
+            // Check if element is hidden
+            if (text.classList.contains('hidden')) {
+                text.classList.remove('hidden');  // Show it
+            } else {
+                text.classList.add('hidden');  // Hide it
+            }
+            
+            // Alternative: Using style.display
+            // if (text.style.display === 'none') {
+            //     text.style.display = 'block';
+            // } else {
+            //     text.style.display = 'none';
+            // }
+        }
+
+        // Example 4: Adding/Removing Elements
+        let itemCount = 0;
+        
+        function addItem() {
+            const input = document.querySelector('#itemInput');
+            const list = document.querySelector('#itemList');
+            
+            const itemText = input.value.trim();
+            
+            if (itemText) {
+                itemCount++;
+                
+                // Create a new div element
+                const newItem = document.createElement('div');
+                newItem.className = 'list-item';
+                newItem.textContent = `${itemCount}. ${itemText}`;
+                
+                // Add click listener to remove item
+                newItem.addEventListener('click', () => {
+                    newItem.remove();  // Remove the element
+                });
+                
+                // Add to the list
+                list.appendChild(newItem);
+                
+                // Clear the input
+                input.value = '';
+            }
+        }
+
+        function clearList() {
+            const list = document.querySelector('#itemList');
+            list.innerHTML = '';  // Remove all children
+            itemCount = 0;
+        }
+
+        // Example 5: Form Handling
+        const form = document.querySelector('#userForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();  // Prevent page refresh
+            
+            const name = document.querySelector('#userName').value;
+            const email = document.querySelector('#userEmail').value;
+            const result = document.querySelector('#formResult');
+            
+            if (name && email) {
+                result.textContent = `Submitted: ${name} (${email})`;
+                result.style.color = 'green';
+                form.reset();  // Clear the form
+            } else {
+                result.textContent = 'Please fill in all fields!';
+                result.style.color = 'red';
+            }
+        });
+
+        // ============================================
+        // BEST PRACTICES
+        // ============================================
+
+        // ✅ DO: Use querySelector for single elements
+        const button = document.querySelector('#myButton');
+
+        // ✅ DO: Use querySelectorAll for multiple elements
+        const buttons = document.querySelectorAll('.button-class');
+
+        // ✅ DO: Store elements in variables if used multiple times
+        const output = document.querySelector('#output');
+        output.textContent = 'First use';
+        output.style.color = 'blue';
+        // ... later ...
+        output.textContent = 'Second use';  // Reuse the variable
+
+        // ✅ DO: Use textContent for plain text (safer)
+        element.textContent = userInput;
+
+        // ✅ DO: Use classList for adding/removing classes
+        element.classList.add('active');
+        element.classList.remove('inactive');
+        element.classList.toggle('visible');
+
+        // ✅ DO: Use addEventListener (not onclick in HTML)
+        button.addEventListener('click', handleClick);
+
+        // ✅ DO: Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Your code here
+        });
+
+        // ❌ DON'T: Use inline styles when CSS classes would work better
+        // element.style.color = 'red';  // OK for dynamic changes
+        // But prefer: element.classList.add('error-text');  // Better for static styles
+
+        // ❌ DON'T: Use innerHTML with user input (security risk!)
+        // element.innerHTML = userInput;  // Dangerous!
+
+        // ❌ DON'T: Query the DOM repeatedly in loops
+        // for (let i = 0; i < 10; i++) {
+        //     document.querySelector('#output').textContent = i;  // Bad - queries 10 times
+        // }
+        // 
+        // const output = document.querySelector('#output');
+        // for (let i = 0; i < 10; i++) {
+        //     output.textContent = i;  // Good - queries once
+        // }
+    </script>
+    </div>
+</body>
+</html>
+

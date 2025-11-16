@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video 4: Functions & Scope - Demo</title>
+    <link rel="stylesheet" href="../main.css" />
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">Back to Main Menu</a>
+        <h1>Video 4: Functions & Scope</h1>
+    
+    <div class="section">
+        <h2>Interactive Examples</h2>
+        <button onclick="runBasicFunctions()">Basic Functions</button>
+        <button onclick="runArrowFunctions()">Arrow Functions</button>
+        <button onclick="runScopeDemo()">Scope Demo</button>
+        <button onclick="runReturnDemo()">Return vs Side Effects</button>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <div class="section">
+        <h2>Tip Calculator</h2>
+        <input type="number" id="billInput" placeholder="Bill amount" min="0" step="0.01">
+        <input type="number" id="tipInput" placeholder="Tip %" min="0" max="100" value="15">
+        <button onclick="calculateTip()">Calculate Tip</button>
+        <div id="tipResult" style="margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <div class="section">
+        <h2>Greeting Function</h2>
+        <input type="text" id="nameInput" placeholder="Your name">
+        <select id="timeInput">
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+        </select>
+        <button onclick="showGreeting()">Get Greeting</button>
+        <div id="greetingResult" style="margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <div class="section">
+        <h2>Console Output</h2>
+        <div id="console" class="console"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            console.log(message);
+            const consoleDiv = document.getElementById('console');
+            const line = document.createElement('div');
+            line.textContent = message;
+            consoleDiv.appendChild(line);
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+            console.clear();
+        }
+
+        function runBasicFunctions() {
+            clearConsole();
+            log('=== Basic Functions ===');
+            
+            function calcTip(bill, pct) {
+                return (bill * pct / 100).toFixed(2);
+            }
+            
+            let tip = calcTip(50, 15);
+            log(`calcTip(50, 15) = $${tip}`);
+            
+            function getFullName(first, last) {
+                return `${first} ${last}`;
+            }
+            
+            let name = getFullName('John', 'Doe');
+            log(`getFullName('John', 'Doe') = ${name}`);
+        }
+
+        function runArrowFunctions() {
+            clearConsole();
+            log('=== Arrow Functions ===');
+            
+            const double = x => x * 2;
+            log(`double(7) = ${double(7)}`);
+            
+            const add = (a, b) => a + b;
+            log(`add(5, 3) = ${add(5, 3)}`);
+            
+            const multiply = (a, b) => {
+                let result = a * b;
+                return result;
+            };
+            log(`multiply(4, 6) = ${multiply(4, 6)}`);
+        }
+
+        function runScopeDemo() {
+            clearConsole();
+            log('=== Scope Demo ===');
+            
+            let globalVar = 'I am global';
+            log(`Global variable: ${globalVar}`);
+            
+            function showScope() {
+                let localVar = 'I am local';
+                log(`Inside function - can see global: ${globalVar}`);
+                log(`Inside function - can see local: ${localVar}`);
+            }
+            
+            showScope();
+            log('Outside function - can see global:', globalVar);
+            log('Outside function - cannot see localVar (would cause error)');
+        }
+
+        function runReturnDemo() {
+            clearConsole();
+            log('=== Return vs Side Effects ===');
+            
+            function getFullName(first, last) {
+                return `${first} ${last}`;
+            }
+            
+            let name = getFullName('Sarah', 'Smith');
+            log(`Function with return: ${name}`);
+            
+            function logMessage(msg) {
+                console.log(msg);
+            }
+            
+            log('Function with side effect (no return):');
+            let nothing = logMessage('This is logged');
+            log(`Return value: ${nothing}`);
+        }
+
+        function calculateTip() {
+            const bill = parseFloat(document.getElementById('billInput').value);
+            const tipPercent = parseFloat(document.getElementById('tipInput').value);
+            const resultDiv = document.getElementById('tipResult');
+            
+            if (isNaN(bill) || bill < 0) {
+                resultDiv.textContent = 'Please enter a valid bill amount';
+                resultDiv.style.color = 'red';
+                return;
+            }
+            
+            function calcTip(bill, pct) {
+                return (bill * pct / 100).toFixed(2);
+            }
+            
+            const tip = calcTip(bill, tipPercent);
+            const total = (parseFloat(bill) + parseFloat(tip)).toFixed(2);
+            
+            resultDiv.innerHTML = `Tip: $${tip}<br>Total: $${total}`;
+            resultDiv.style.color = 'green';
+        }
+
+        function showGreeting() {
+            const name = document.getElementById('nameInput').value;
+            const timeOfDay = document.getElementById('timeInput').value;
+            const resultDiv = document.getElementById('greetingResult');
+            
+            if (!name) {
+                resultDiv.textContent = 'Please enter your name';
+                resultDiv.style.color = 'red';
+                return;
+            }
+            
+            function greet(name, timeOfDay) {
+                return `Good ${timeOfDay.toLowerCase()}, ${name}!`;
+            }
+            
+            const greeting = greet(name, timeOfDay);
+            resultDiv.textContent = greeting;
+            resultDiv.style.color = 'green';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            log('Welcome! Click the buttons above to run examples.');
+            log('Try the tip calculator and greeting function!');
+        });
+    </script>
+    </div>
+</body>
+</html>
+
