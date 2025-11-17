@@ -11,8 +11,8 @@
    ============================================ */
 :root {
   /* Primary gradient colors */
-  --gradient-start: #667eea;
-  --gradient-end: #764ba2;
+  --gradient-start: #5873ec;
+  --gradient-end: #170a7d;
   --gradient: linear-gradient(
     135deg,
     var(--gradient-start) 0%,
@@ -121,6 +121,10 @@ li {
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: var(--spacing-sm);
+}
+
+.text-white {
+  color: var(--text-white);
 }
 
 /* ============================================

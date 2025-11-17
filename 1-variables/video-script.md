@@ -1,7 +1,7 @@
 # Video 1: Variables & Data Types
 
 **Title:** "JavaScript Variables: Why `1 + '1' = '11'` (and How to Fix It)"
-**Duration:** 5-7 minutes
+**Duration:** 7-8 minutes
 
 ---
 
@@ -11,15 +11,32 @@
 
 You might think programming is complicated, but at its core, it's just telling the computer to remember things and do things with those things. And the first step is learning how to store information—we call these 'variables.'
 
-By the end of this video, you'll understand how to store text, numbers, and other types of information in your code. You'll even understand why adding the number 1 to the text '1' gives you '11' instead of 2—and that's going to make total sense once you see how it works.
+By the end of this video, you'll understand how to store text, numbers, and other types of information in your code.
+You'll even understand why adding the number 1 to the text '1' gives you '11' instead of 2—and that's going to make total sense once you see how it works.
 
 No prior experience needed. Let's start coding!"
 
 ---
 
-## [0:30-2:00] CORE CONCEPT
+## [0:30-1:00] CONSOLE INTRODUCTION
+
+"Before we dive into variables, let me quickly show you where we'll be writing our code. We'll be using the browser console—a special tool built into every web browser that lets us write and test JavaScript code in real-time.
+
+If you're using Chrome, you can open the developer console by pressing F12 on Windows or Command+Option+I on Mac. Then click on the 'Console' tab. This is where we'll type our code and see the results immediately.
+
+Now, I should mention that each of the code examples in this course has an HTML console built right into the page. This makes it easier for new programmers to follow along without having to open the browser's developer tools right away. You can just open the HTML file and start coding directly on the page.
+
+Don't worry if you're not familiar with developer tools yet—we'll cover how to use the browser console and other developer tools in detail in a later video. For now, just know that the console is where we write and test our JavaScript code, and you have a convenient HTML console on each example page to get started."
+
+---
+
+## [1:00-2:30] CORE CONCEPT
 
 "Let's start with the basics. Think of variables as labeled boxes. You put something in the box, give it a label, and later you can find it using that label.
+Another example: A Contact in Your Phone
+A contact name (“Mom”) is the variable.
+The phone number stored behind it is the value.
+Change the number, the label stays the same — but anyone calling “Mom” reaches the updated value.
 
 In JavaScript, we have three ways to create these boxes: `let`, `const`, and `var`.
 
@@ -39,7 +56,7 @@ Here's the one-line summary: Variables are labeled boxes, and data types are wha
 
 ---
 
-## [2:00-4:00] LIVE DEMO
+## [2:30-4:30] LIVE DEMO
 
 "Alright, let's see this in action. I'm going to open my browser console—that's a special tool where we can type code and see what happens. If you're following along, you can open it too: press F12 on Windows or Command+Option+I on Mac, then click the 'Console' tab. This is where we'll write and test our code.
 
@@ -109,7 +126,7 @@ That gives us 3! With subtraction, JavaScript converts the string to a number. T
 
 ---
 
-## [4:00-5:30] COMMON HANGUPS
+## [4:30-6:00] COMMON HANGUPS
 
 "Alright, here's where 90% of newbies trip up. Three big gotchas:
 
@@ -147,7 +164,7 @@ The array itself is constant, but you can modify its contents. Think of it like 
 
 ---
 
-## [5:30-6:15] MINI-CHALLENGE
+## [6:00-6:45] MINI-CHALLENGE
 
 "Alright, pause the video and try this. I want you to create a user object with three properties: `name` as a string, `age` as a number, and `isLoggedIn` as a boolean. Then log a message that says '[name] is [age] and logged in: [true or false]'.
 
@@ -155,7 +172,7 @@ Use what we learned about variables and data types. Give it a shot—pause now!"
 
 ---
 
-## [6:15-6:30] SOLUTION
+## [6:45-7:00] SOLUTION
 
 "Alright, here's how I'd do it:
 
@@ -176,6 +193,6 @@ If you got something similar, you're on the right track!"
 
 ---
 
-## [6:30-7:00] TEASER
+## [7:00-7:30] TEASER
 
 "You can now store data in variables. But what if you want your code to make decisions? What if you want it to repeat something 10 times without copy-pasting? That's where control flow comes in. In the next video, we'll learn about if statements and loops—the tools that let your code think and repeat. See you there!"
