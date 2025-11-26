@@ -7,7 +7,11 @@
 
 ## [0:00-0:30] HOOK
 
-"Welcome! If you've never written a single line of code before, you're in the right place. This is where it all starts. Today, we're going to learn the very foundation of programming: how to store information in your code.
+"Welcome! If you've never written a single line of code before, you're in the right place. You can do this. You can learn to code. I know it might seem overwhelming at first—there's so much to learn, so many concepts, so many tools. But here's the thing: you don't need to learn it all at once.
+
+The secret to mastering programming is to break it down—one core feature at a time. Don't try to learn everything too quickly. Master each basic concept first. Build a solid foundation. For example, today TypeScript is used to code JavaScript to help catch errors in JS, but it adds complexity and can be overwhelming to new programmers. For that reason I suggest learning all core JS concepts before using TypeScript. Also TypeScript can't be run in the browser and has to be converted to JavaScript;
+
+This is where it all starts. Today, we're going to learn the very foundation of programming: how to store information in your code.
 
 You might think programming is complicated, but at its core, it's just telling the computer to remember things and do things with those things. And the first step is learning how to store information—we call these 'variables.'
 
@@ -40,19 +44,37 @@ Change the number, the label stays the same — but anyone calling “Mom” rea
 
 In JavaScript, we have three ways to create these boxes: `let`, `const`, and `var`.
 
-`let` is like a box you can change—you can put something in, take it out, put something else in. It's reassignable.
+`let` is like a box you can change—you can put something in, take it out, put something else in. It's reassignable / mutable.
 
-`const` is like a locked box—once you put something in, you can't replace it. The contents might change, but you can't swap out the whole box. It's constant, fixed.
+`const` is like a locked box—once you put something in, you can't replace it. The contents might change, but you can't swap out the whole box. It's constant, fixed / immutable.
 
 `var` is the old-school way. It works, but it has some weird behavior that trips up beginners. We'll see that in a minute.
 
 Now, what goes inside these boxes? That's where data types come in. Think of data types as different kinds of things you can store.
 
-Strings are text—words, sentences, anything wrapped in quotes. Numbers are... well, numbers. Booleans are true or false—like a light switch, either on or off. Then we have `null`, which means 'intentionally empty,' and `undefined`, which means 'not set yet.'
+JavaScript has seven primitive data types—these are the basic building blocks that cannot be broken down further:
+
+1. **String** - Text data, like words or sentences. Always wrapped in quotes (single, double, or backticks). Example: `"Hello"` or `'World'`
+2. **Number** - Numeric values, including integers and decimals. Example: `42` or `3.14`
+3. **Boolean** - Represents true or false—like a light switch, either on or off. Example: `true` or `false`
+4. **Undefined** - A variable that has been declared but hasn't been given a value yet. It means 'not set yet.'
+5. **Null** - Represents an intentionally empty value. It means 'intentionally empty.'
+6. **Symbol** - A unique identifier that cannot be duplicated. Used for creating unique property keys in objects. Example: `Symbol('id')`
+7. **BigInt** - Used for integers that are too large to be represented by the Number type. Example: `9007199254740991n`
+
+For beginners, you'll use strings, numbers, booleans, `null`, and `undefined` most often. Symbols and BigInt are more advanced features you'll encounter later.
 
 Now, you might have heard of TypeScript—it's a language that adds type checking to JavaScript, which helps catch errors before your code runs. But here's the thing: TypeScript is built on top of JavaScript. You need to understand JavaScript fundamentals first—like what we're learning right now—before you can effectively use TypeScript. Think of JavaScript as the foundation, and TypeScript as an advanced tool you'll learn later once you've mastered the basics.
 
 Here's the one-line summary: Variables are labeled boxes, and data types are what's inside them."
+
+Now, before we move on, there are some important rules about naming variables. You can't just use any word you want.
+
+**First, reserved keywords are off-limits.** JavaScript has special words that it uses for its own purposes—words like `let`, `const`, `var`, `if`, `else`, `function`, `return`, `true`, `false`, `null`, `undefined`, and many others. These are called 'reserved keywords,' and you cannot use them as variable names. If you try, JavaScript will throw an error because it needs these words for its own syntax.
+
+**Second, variable names cannot start with a number.** You can use numbers in variable names, but they can't be the first character. So `name1` is fine, but `1name` is not. This is because JavaScript needs to distinguish between numbers and variable names when it reads your code.
+
+Here are some examples: `let let = 5;` will cause an error because `let` is a reserved keyword. `let 1user = "Alex";` will also cause an error because it starts with a number. But `let user1 = "Alex";` works perfectly—the number comes after the letters.
 
 ---
 
@@ -100,67 +122,6 @@ Error! Can't reassign a const. But I can change the `let`:
 name = "Alexandra";
 console.log(name);
 ```
-
-Works perfectly.
-
-Now, here's where it gets interesting. Watch what happens when I mix types:
-
-[Type]
-
-```javascript
-let score = 90;
-console.log(`${name} is ${age} → ${score + " points"}`);
-```
-
-See that? When I use the plus sign with a string, JavaScript converts everything to strings. That's why `1 + '1'` gives you `'11'`—it's converting the number 1 to the string '1' and then joining them together.
-
-But watch this:
-
-[Type]
-
-```javascript
-console.log("5" - 2);
-```
-
-That gives us 3! With subtraction, JavaScript converts the string to a number. This automatic conversion is called 'type coercion,' and it's both helpful and confusing."
-
----
-
-## [4:30-6:00] COMMON HANGUPS
-
-"Alright, here's where 90% of newbies trip up. Three big gotchas:
-
-**Number one: Hoisting with var.** Watch this:
-
-[Type]
-
-```javascript
-console.log(x);
-var x = 5;
-```
-
-What do you think prints? An error? Nope—it prints `undefined`. That's because JavaScript 'hoists' var declarations to the top. It's like JavaScript sees this code and says, 'Oh, you're going to declare x later, let me make space for it now.' But the value assignment happens later. This is why we prefer `let` and `const`—they don't do this weird hoisting thing.
-
-**Number two: Type coercion confusion.** We saw this earlier. `"5" - 2` equals 3, but `"5" + 2` equals `"52"`. The plus sign is special—it's used for both addition and string concatenation. JavaScript has to guess what you want, and it guesses 'string' when one thing is a string. To fix this, be explicit:
-
-[Type]
-
-```javascript
-Number("5") + 2; // 7
-String(5) + "2"; // "52"
-```
-
-**Number three: Trying to reassign const.** You can't replace the whole box, but you can change what's inside if it's an object or array. This confuses people:
-
-[Type]
-
-```javascript
-const arr = [1, 2, 3];
-arr.push(4); // This works!
-arr = [5, 6]; // This doesn't!
-```
-
-The array itself is constant, but you can modify its contents. Think of it like a locked box—you can't swap the box, but you can rearrange what's inside."
 
 ---
 
